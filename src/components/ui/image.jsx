@@ -1,4 +1,5 @@
 import * as React from "react"
+import { cn } from "../../lib/utils"
 import { ResponsiveImage } from "./responsive-image"
 import {
   getOriginalImageUrl,
@@ -26,8 +27,8 @@ const FALLBACK_IMAGE_URL =
  * static.wixstatic.com/media are resized to the rendered container per device
  * pixel ratio and served as AVIF/WebP when supported; `fittingType="fill"`
  * crops server-side, optionally anchored at a focal point. Other URLs render
- * as a plain <img>. Failed transforms retry the original URL; only a broken
- * original swaps to the generic fallback image.
+ * as a plain <img> with matching object-fit behavior. Failed transforms retry
+ * the original URL; only a broken original swaps to the generic fallback image.
  */
 /** @type {React.ForwardRefRenderFunction<HTMLImageElement, ImageProps>} */
 const ImageComponent = (
@@ -63,7 +64,7 @@ const ImageComponent = (
 
     const imageProps = {
       ...props,
-      className: props.className,
+      className: cn(props.className, fittingType === "fit" ? "object-contain" : "object-cover"),
       onError: handleError,
     }
 
