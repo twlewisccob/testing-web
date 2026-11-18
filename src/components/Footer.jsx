@@ -62,6 +62,7 @@ export default function Footer() {
   );
 }
 
+/** @param {{ title: string, links: { label: string, to: string }[] }} props */
 function FooterCol({ title, links }) {
   return (
     <div>
